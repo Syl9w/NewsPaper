@@ -52,11 +52,3 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-class CommentCreateView(LoginRequiredMixin, CreateView):
-    model = Comment
-    template_name = 'comment_create.html'
-    fields = ('comment')
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        form.instance.article = Article.objects.get(pk=self.kwargs['article_pk'])
-        return super().form_valid(form)
